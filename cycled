@@ -1,0 +1,27 @@
+#!/bin/bash
+case "$1" in 
+start)
+   /usr/bin/cycle &
+   echo $!>/var/run/cycled.pid
+   ;;
+stop)
+   kill `cat /var/run/cycled.pid`
+   rm /var/run/cycled.pid
+   ;;
+restart)
+   $0 stop
+   $0 start
+   ;;
+status)
+   if [ -e /var/run/cycled.pid]; then
+      echo cycled is running, pid=`cat /var/run/cycled.pid`
+   else
+      echo cycled is NOT running
+      exit 1
+   fi
+   ;;
+*)
+   echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0 

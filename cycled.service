@@ -1,0 +1,12 @@
+[Unit]
+Description=cycle Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/cycle
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
